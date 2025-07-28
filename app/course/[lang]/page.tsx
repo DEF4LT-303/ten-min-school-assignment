@@ -1,5 +1,7 @@
 import CoursePreviewCard from '@/components/CourseChecklist';
+import CourseExclusiveFeatures from '@/components/CourseExclusive';
 import CourseFeatures from '@/components/CourseFeatures';
+import CoursePointers from '@/components/CoursePointers';
 import InstructorCard from '@/components/Instructors';
 import CourseContent from '@/components/Title';
 import { Metadata } from 'next';
@@ -99,6 +101,14 @@ export default async function IELTSPage({
     (section) => section.type === 'features',
   );
 
+  const pointers = course.sections.find(
+    (section) => section.type === 'pointers',
+  );
+
+  const courseExclusive = course.sections.find(
+    (section) => section.type === 'feature_explanations',
+  );
+
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="flex flex-row justify-center items-start my-8 gap-20">
@@ -125,6 +135,23 @@ export default async function IELTSPage({
                   {features && features.name}
                 </h2>
                 {features && <CourseFeatures features={features.values} />}
+
+                <h2 className="text-2xl font-bold text-primary mt-4">
+                  {pointers && pointers.name}
+                </h2>
+                {pointers && pointers.values.length > 0 && (
+                  <CoursePointers
+                    title={pointers.name}
+                    pointers={pointers.values}
+                  />
+                )}
+
+                <h2 className="text-2xl font-bold text-primary mt-4">
+                  {courseExclusive && courseExclusive.name}
+                </h2>
+                {courseExclusive && courseExclusive.values.length > 0 && (
+                  <CourseExclusiveFeatures features={courseExclusive.values} />
+                )}
               </div>
             </div>
           )}

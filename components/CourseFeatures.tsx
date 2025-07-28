@@ -14,7 +14,7 @@ type Props = {
 
 export default function CourseFeatures({ features }: Props) {
   return (
-    <Card className="shadow-lg mb-8 border border-secondary">
+    <Card className="shadow-md mb-8 border border-secondary">
       <div className="container mx-auto px-4">
         <div className="flex flex-col gap-6">
           {features.map((feature) => (
