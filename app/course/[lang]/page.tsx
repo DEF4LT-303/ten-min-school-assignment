@@ -76,12 +76,11 @@ export async function generateMetadata({
   if (!course) return {};
 
   return {
-    title: course.seoTitle,
-    description: course.seoDescription,
+    title: course.seoTitle || course.title,
+    description: course.seoDescription || course.description,
     openGraph: {
-      title: course.seoTitle,
-      description: course.seoDescription,
-      images: [course.image],
+      title: course.seoTitle || course.title,
+      description: course.seoDescription || course.description,
     },
   };
 }
@@ -96,25 +95,19 @@ export default async function IELTSPage({
 
   if (!course) return notFound();
 
-  const instructorSection = course.sections.find(
-    (section) => section.type === 'instructors',
+  const sectionMap = course.sections.reduce<Record<string, CourseSection>>(
+    (acc, section) => {
+      acc[section.type] = section;
+      return acc;
+    },
+    {},
   );
 
-  const features = course.sections.find(
-    (section) => section.type === 'features',
-  );
-
-  const pointers = course.sections.find(
-    (section) => section.type === 'pointers',
-  );
-
-  const courseExclusive = course.sections.find(
-    (section) => section.type === 'feature_explanations',
-  );
-
-  const courseDetails = course.sections.find(
-    (section) => section.type === 'about',
-  );
+  const instructorSection = sectionMap['instructors'];
+  const features = sectionMap['features'];
+  const pointers = sectionMap['pointers'];
+  const courseExclusive = sectionMap['feature_explanations'];
+  const courseDetails = sectionMap['about'];
 
   return (
     <div className="container mx-auto px-4 py-8">
