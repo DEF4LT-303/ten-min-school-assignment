@@ -68,9 +68,10 @@ async function getCourseData(lang: string): Promise<Course | null> {
 export async function generateMetadata({
   params,
 }: {
-  params: { lang: string };
+  params: Promise<{ lang: string }>;
 }): Promise<Metadata> {
-  const course = await getCourseData(params.lang);
+  const resolvedParams = await params;
+  const course = await getCourseData(resolvedParams.lang);
 
   if (!course) return {};
 
@@ -88,9 +89,10 @@ export async function generateMetadata({
 export default async function IELTSPage({
   params,
 }: {
-  params: { lang: string };
+  params: Promise<{ lang: string }>;
 }) {
-  const course = await getCourseData(params.lang);
+  const resolvedParams = await params;
+  const course = await getCourseData(resolvedParams.lang);
 
   if (!course) return notFound();
 
