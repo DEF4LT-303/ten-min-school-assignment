@@ -25,10 +25,12 @@ export default function LangToggle() {
     <Button
       onClick={toggleLang}
       variant="outline"
-      className="gap-2 border-gray-300 hover:bg-muted transition-all"
+      className="gap-2 border-secondary hover:bg-muted transition-all bg-secondary"
     >
-      <Languages className="w-4 h-4" />
-      <span>{lang === 'en' ? 'বাংলা' : 'English'}</span>
+      <Languages className="w-4 h-4 text-primary" />
+      <span className="text-primary">
+        {lang === 'en' ? 'বাংলা' : 'English'}
+      </span>
     </Button>
   );
 }

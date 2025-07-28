@@ -1,10 +1,37 @@
-import Navbar from '@/components/Navbar';
+import CoursePreviewCard from '@/components/CourseChecklist';
+import InstructorCard from '@/components/Instructors';
+import CourseContent from '@/components/Title';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+
+type Instructor = {
+  name: string;
+  short_description: string;
+  image: string;
+  slug: string;
+  description: string;
+  has_instructor_page: boolean;
+};
+
+type CourseSection = {
+  type: string;
+  name: string;
+  description: string;
+  bg_color: string;
+  order_idx: number;
+  values: Instructor[];
+};
 
 type Course = {
   title: string;
   description: string;
+  media: [];
+  checklist: [];
+  cta_text: {
+    name: string;
+    value: string;
+  };
+  sections: CourseSection[];
   seoTitle: string;
   seoDescription: string;
   image: string;
@@ -34,7 +61,6 @@ async function getCourseData(lang: string): Promise<Course | null> {
   }
 }
 
-// ✅ Set dynamic SEO metadata
 export async function generateMetadata({
   params,
 }: {
@@ -55,27 +81,51 @@ export async function generateMetadata({
   };
 }
 
-// ✅ Main Page Component
 export default async function IELTSPage({
   params,
 }: {
   params: { lang: string };
 }) {
   const course = await getCourseData(params.lang);
-  const lang = params.lang;
 
   if (!course) return notFound();
 
+  const instructorSection = course.sections.find(
+    (section) => section.type === 'instructors',
+  );
+
   return (
-    <>
-      <Navbar />
-      <main className="p-8">
-        <h1 className="text-3xl font-bold mb-4">{course.title}</h1>
-        <div
-          className="mb-6"
-          dangerouslySetInnerHTML={{ __html: course.description }}
+    <div className="container mx-auto px-4 py-8">
+      <div className="flex flex-row justify-center items-start my-8 gap-20">
+        <div className="flex flex-col w-full">
+          <CourseContent
+            title={course.title}
+            description={course.description}
+          />
+
+          {instructorSection && instructorSection.values.length > 0 && (
+            <div className="mt-12">
+              <h2 className="text-2xl font-bold mb-6 text-primary">
+                {instructorSection.name}
+              </h2>
+              <div className="flex flex-col gap-6">
+                {instructorSection.values.map((instructor: Instructor) => (
+                  <InstructorCard
+                    key={instructor.slug}
+                    instructor={instructor}
+                  />
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+
+        <CoursePreviewCard
+          media={course.media}
+          cta={course.cta_text}
+          checklist={course.checklist}
         />
-      </main>
-    </>
+      </div>
+    </div>
   );
 }
