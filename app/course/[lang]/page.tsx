@@ -76,11 +76,11 @@ export async function generateMetadata({
   if (!course) return {};
 
   return {
-    title: course.seoTitle || course.title,
-    description: course.seoDescription || course.description,
+    title: course.title,
+    description: course.description,
     openGraph: {
-      title: course.seoTitle || course.title,
-      description: course.seoDescription || course.description,
+      title: course.title,
+      description: course.description,
     },
   };
 }
