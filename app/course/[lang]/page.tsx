@@ -1,4 +1,5 @@
 import CoursePreviewCard from '@/components/CourseChecklist';
+import CourseFeatures from '@/components/CourseFeatures';
 import InstructorCard from '@/components/Instructors';
 import CourseContent from '@/components/Title';
 import { Metadata } from 'next';
@@ -19,7 +20,7 @@ type CourseSection = {
   description: string;
   bg_color: string;
   order_idx: number;
-  values: Instructor[];
+  values: [];
 };
 
 type Course = {
@@ -94,6 +95,10 @@ export default async function IELTSPage({
     (section) => section.type === 'instructors',
   );
 
+  const features = course.sections.find(
+    (section) => section.type === 'features',
+  );
+
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="flex flex-row justify-center items-start my-8 gap-20">
@@ -115,6 +120,11 @@ export default async function IELTSPage({
                     instructor={instructor}
                   />
                 ))}
+
+                <h2 className="text-2xl font-bold text-primary mt-4">
+                  {features && features.name}
+                </h2>
+                {features && <CourseFeatures features={features.values} />}
               </div>
             </div>
           )}

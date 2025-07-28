@@ -1,7 +1,13 @@
 import Navbar from '@/components/Navbar';
 import type { Metadata } from 'next';
-import { Geist, Geist_Mono } from 'next/font/google';
+import { Geist, Geist_Mono, Noto_Sans_Bengali } from 'next/font/google';
 import './globals.css';
+
+const notoBengali = Noto_Sans_Bengali({
+  subsets: ['bengali'],
+  weight: ['400', '700'],
+  variable: '--font-bengali',
+});
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -26,7 +32,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`light ${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`light ${notoBengali.variable} ${geistMono.variable} antialiased`}
       >
         <div className="min-h-screen flex flex-col">
           <Navbar />

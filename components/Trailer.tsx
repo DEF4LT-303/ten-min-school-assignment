@@ -21,7 +21,7 @@ export default function Trailer({ media }: TrailerProps) {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({
-    loop: false, // no infinite loop
+    loop: false,
     slides: { perView: 1, spacing: 16 },
     mode: 'snap',
     slideChanged(s) {
