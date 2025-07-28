@@ -7,8 +7,10 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
+  type CarouselApi,
 } from '@/components/ui/carousel';
 import Image from 'next/image';
+import { useEffect, useState } from 'react';
 
 type MediaItem = {
   name: string;
@@ -23,6 +25,16 @@ type TrailerProps = {
 
 export default function Trailer({ media }: TrailerProps) {
   const gallery = media.filter((item) => item.name === 'preview_gallery');
+  const [api, setApi] = useState<CarouselApi>();
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  useEffect(() => {
+    if (!api) return;
+
+    api.on('select', () => {
+      setCurrentSlide(api.selectedScrollSnap());
+    });
+  }, [api]);
 
   return (
     <div className="w-full">
@@ -31,6 +43,7 @@ export default function Trailer({ media }: TrailerProps) {
           align: 'start',
           loop: false,
         }}
+        setApi={setApi}
         className="w-full"
       >
         <CarouselContent>
@@ -40,10 +53,13 @@ export default function Trailer({ media }: TrailerProps) {
                 {item.resource_type === 'video' ? (
                   <AspectRatio ratio={16 / 9}>
                     <iframe
-                      src={`https://www.youtube.com/embed/${item.resource_value}`}
+                      src={`https://www.youtube.com/embed/${item.resource_value}${
+                        currentSlide === index ? '?autoplay=1' : '?autoplay=0'
+                      }`}
                       title={`Video ${index}`}
                       className="w-full h-full rounded-sm"
                       allowFullScreen
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     />
                   </AspectRatio>
                 ) : (
