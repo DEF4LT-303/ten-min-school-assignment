@@ -13,7 +13,7 @@ type Props = {
 
 export default function CoursePointers({ pointers }: Props) {
   return (
-    <Card className="bg-white border-secondary shadow-md">
+    <Card className="bg-card border-secondary shadow-md">
       <CardContent>
         <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
           {pointers.map((pointer) => (

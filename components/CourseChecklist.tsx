@@ -39,7 +39,7 @@ export default function CoursePreviewCard({ media, cta, checklist }: Props) {
         <h2 className="text-2xl font-bold mb-4 text-primary">৳1000</h2>
         <Button
           size="lg"
-          className="w-full bg-primary text-white text-lg font-semibold"
+          className="w-full bg-primary text-white text-lg font-semibold cursor-pointer"
           onClick={() => {}}
         >
           {cta.name}

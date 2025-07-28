@@ -1,4 +1,5 @@
 import CoursePreviewCard from '@/components/CourseChecklist';
+import CourseAboutSection from '@/components/CourseDetails';
 import CourseExclusiveFeatures from '@/components/CourseExclusive';
 import CourseFeatures from '@/components/CourseFeatures';
 import CoursePointers from '@/components/CoursePointers';
@@ -109,6 +110,10 @@ export default async function IELTSPage({
     (section) => section.type === 'feature_explanations',
   );
 
+  const courseDetails = course.sections.find(
+    (section) => section.type === 'about',
+  );
+
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="flex flex-row justify-center items-start my-8 gap-20">
@@ -151,6 +156,13 @@ export default async function IELTSPage({
                 </h2>
                 {courseExclusive && courseExclusive.values.length > 0 && (
                   <CourseExclusiveFeatures features={courseExclusive.values} />
+                )}
+
+                <h2 className="text-2xl font-bold text-primary mt-4">
+                  {courseDetails && courseDetails.name}
+                </h2>
+                {courseDetails && courseDetails.values.length > 0 && (
+                  <CourseAboutSection aboutItems={courseDetails.values} />
                 )}
               </div>
             </div>

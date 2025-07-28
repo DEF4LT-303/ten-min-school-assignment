@@ -18,7 +18,7 @@ interface Props {
 const CourseExclusiveFeatures = ({ features }: Props) => {
   return (
     <div>
-      <Card className="bg-white border-secondary shadow-md">
+      <Card className="bg-card border-secondary shadow-md">
         {features.map((feature, idx) => (
           <div key={feature.id}>
             <CardContent className="p-6">
