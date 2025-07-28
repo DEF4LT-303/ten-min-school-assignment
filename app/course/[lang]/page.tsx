@@ -110,9 +110,9 @@ export default async function IELTSPage({
   const courseDetails = sectionMap['about'];
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="flex flex-row justify-center items-start my-8 gap-20">
-        <div className="flex flex-col w-full">
+    <div className="container mx-auto px-4 py-8 min-h-screen">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 my-8">
+        <div className="lg:col-span-2 order-2 lg:order-1">
           <CourseContent
             title={course.title}
             description={course.description}
@@ -164,11 +164,13 @@ export default async function IELTSPage({
           )}
         </div>
 
-        <CoursePreviewCard
-          media={course.media}
-          cta={course.cta_text}
-          checklist={course.checklist}
-        />
+        <div className="lg:col-span-1 order-1 lg:order-2">
+          <CoursePreviewCard
+            media={course.media}
+            cta={course.cta_text}
+            checklist={course.checklist}
+          />
+        </div>
       </div>
     </div>
   );

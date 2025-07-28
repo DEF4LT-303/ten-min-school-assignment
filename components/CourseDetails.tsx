@@ -18,7 +18,7 @@ interface Props {
 
 const CourseAboutSection = ({ aboutItems }: Props) => {
   return (
-    <Card className="w-full max-w-4xl mx-auto border-secondary shadow-md">
+    <Card className="w-full mx-auto border-secondary shadow-md">
       <CardContent className="p-6">
         <Accordion type="multiple" className="space-y-4">
           {aboutItems.map((item) => (

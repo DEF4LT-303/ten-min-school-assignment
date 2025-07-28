@@ -33,7 +33,7 @@ type Props = {
 
 export default function CoursePreviewCard({ media, cta, checklist }: Props) {
   return (
-    <Card className="w-full max-w-2xl mx-auto border border-secondary">
+    <Card className="w-full border border-secondary sticky top-20 mb-8 md:mb-0 shadow-md">
       <CardContent className="p-6 space-y-6">
         <Trailer media={media} />
         <h2 className="text-2xl font-bold mb-4 text-primary">৳1000</h2>
